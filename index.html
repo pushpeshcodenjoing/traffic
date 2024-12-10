@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Traffic Light</title>
+  <style>
+    /* Reset some default styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.traffic-light {
+  width: 100px;
+  height: 270px;
+  background-color: #333;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 10px;
+  cursor: pointer; /* Indicate that the traffic light is interactive */
+}
+
+.light {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #333; /* Lights are off by default */
+  transition: background-color 0.5s ease;
+}
+
+/* Define the colors of the lights when they are "on" */
+.red.on {
+  background-color: red;
+}
+
+.yellow.on {
+  background-color: yellow;
+}
+
+.green.on {
+  background-color: green;
+}
+
+/* Define the blinking effect */
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0.3; }
+  100% { opacity: 1; }
+}
+
+/* Blinking effect applied via JS */
+.blink {
+  animation: blink 1s infinite;
+}
+
+  </style>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="traffic-light" id="traffic-light">
+    <div class="light red" id="red"></div>
+    <div class="light yellow" id="yellow"></div>
+    <div class="light green" id="green"></div>
+  </div>
+
+  <script src="script.js"></script>
+
+  <script>
+    // Get all the light elements
+const redLight = document.getElementById('red');
+const yellowLight = document.getElementById('yellow');
+const greenLight = document.getElementById('green');
+
+// Get the traffic light container
+const trafficLight = document.getElementById('traffic-light');
+
+// Function to turn off all lights
+function turnOffLights() {
+  redLight.classList.remove('on', 'blink');
+  yellowLight.classList.remove('on', 'blink');
+  greenLight.classList.remove('on', 'blink');
+}
+
+// Function to handle mouse hover on each light
+function handleLightHover(light) {
+  // Turn off all lights before turning on the hovered one
+  turnOffLights();
+
+  // Turn on the hovered light and make it blink
+  light.classList.add('on', 'blink');
+}
+
+// Function to handle mouse leaving the traffic light
+trafficLight.addEventListener('mouseout', () => {
+  // Turn off all lights when the cursor leaves the traffic light
+  turnOffLights();
+});
+
+// Event listeners for each light when hovered
+redLight.addEventListener('mouseover', () => handleLightHover(redLight));
+yellowLight.addEventListener('mouseover', () => handleLightHover(yellowLight));
+greenLight.addEventListener('mouseover', () => handleLightHover(greenLight));
+
+  </script>
+</body>
+</html>
